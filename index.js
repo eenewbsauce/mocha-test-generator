@@ -13,4 +13,4 @@ Reflect.ownKeys(sourceClass.prototype).forEach((key) => {
 
 output = mochaHelper.describe(specs, false);
 
-console.log(JSON.stringify(output, null, 4));
+console.log(output);
