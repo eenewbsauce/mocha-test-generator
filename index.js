@@ -1,18 +1,16 @@
 const argv = require('minimist')(process.argv.slice(2));
-const { helpers, mocha } = require('./lib');
+const { helpers, Mocha } = require('./lib');
 
 let sourceClass = require(argv.source);
-let className = sourceClass.name;
 let output = '';
 let specs = [];
+let mochaHelper = new Mocha(sourceClass)
 
 Reflect.ownKeys(sourceClass.prototype).forEach((key) => {
-    // console.log(helpers.getMethodName(sourceClass.prototype[key]));
-    // console.log(sourceClass.prototype[key].toString())
-    specs.push(mocha.it(sourceClass, key));
+    specs.push(mochaHelper.it(key));
 
 });
 
-output = mocha.describe(className, specs, false);
+output = mochaHelper.describe(specs, false);
 
 console.log(JSON.stringify(output, null, 4));
